@@ -1,0 +1,586 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+{% block title %}
+Flipkart | Product Management
+{% endblock %}
+
+{% block content %}
+
+    <!--=======================================
+            PAGE HEADER
+    ========================================-->
+
+<div class="glass-card page-header-card mb-4">
+
+    <!-- PROMO CAROUSEL -->
+    <div id="promoCarousel"
+        class="carousel slide promo-carousel"
+        data-bs-ride="carousel"
+        data-bs-interval="4500">
+
+        <!-- INDICATORS -->
+        <div class="carousel-indicators">
+
+            <button type="button"
+                    data-bs-target="#promoCarousel"
+                    data-bs-slide-to="0"
+                    class="active"
+                    aria-current="true">
+            </button>
+
+            <button type="button"
+                    data-bs-target="#promoCarousel"
+                    data-bs-slide-to="1">
+            </button>
+
+            <button type="button"
+                    data-bs-target="#promoCarousel"
+                    data-bs-slide-to="2">
+            </button>
+
+        </div>
+
+        <!-- BANNERS -->
+        <div class="carousel-inner">
+
+            <!-- FESTIVE SALE -->
+            <div class="carousel-item active">
+                <img src="{% static 'images/festive-sale.png' %}"
+                    class="promo-banner"
+                    alt="Festive Sale">
+            </div>
+
+            <!-- 80% OFF -->
+            <div class="carousel-item">
+                <img src="{% static 'images/80-percent-off.png' %}"
+                    class="promo-banner"
+                    alt="Up to 80% Off">
+            </div>
+
+            <!-- NEW ARRIVALS -->
+            <div class="carousel-item">
+                <img src="{% static 'images/new-arrivals.png' %}"
+                    class="promo-banner"
+                    alt="New Arrivals">
+            </div>
+
+        </div>
+
+        <!-- PREVIOUS -->
+        <button class="carousel-control-prev"
+                type="button"
+                data-bs-target="#promoCarousel"
+                data-bs-slide="prev">
+
+            <span class="carousel-control-prev-icon"></span>
+
+            <span class="visually-hidden">
+                Previous
+            </span>
+
+        </button>
+
+        <!-- NEXT -->
+        <button class="carousel-control-next"
+                type="button"
+                data-bs-target="#promoCarousel"
+                data-bs-slide="next">
+
+            <span class="carousel-control-next-icon"></span>
+
+            <span class="visually-hidden">
+                Next
+            </span>
+
+        </button>
+
+    </div>
+
+    <div class="d-flex
+                justify-content-between
+                align-items-center
+                flex-wrap
+                gap-3">
+
+        <div>
+
+            <!-- MAIN TITLE -->
+            <div class="page-title">
+                Product Management
+            </div>
+
+            <!-- SUBTITLE -->
+            <div class="page-subtitle">
+                Manage your Flipkart product inventory
+            </div>
+
+        </div>
+
+        <a href="{% url 'product_create' %}"
+           class="btn btn-primary add-product-btn">
+
+            <i class="fa-solid fa-plus me-2"></i>
+            Add Product
+
+        </a>
+
+    </div>
+
+</div>
+
+<!--=======================================
+        QUICK STATISTICS
+========================================-->
+
+<div class="row g-4 mb-4">
+
+    <!-- TOTAL PRODUCTS -->
+
+    <div class="col-md-4">
+
+        <div class="glass-card stat-card">
+
+            <div class="stat-content">
+
+                <div>
+
+                    <div class="stat-label">
+
+                        TOTAL PRODUCTS
+
+                    </div>
+
+                    <div class="stat-number">
+
+                        {{ products|length }}
+
+                    </div>
+
+                    <div class="stat-description">
+
+                        Products in inventory
+
+                    </div>
+
+                </div>
+
+                <div class="stat-icon blue-icon">
+
+                    <i class="fa-solid fa-box-open"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- INVENTORY -->
+
+    <div class="col-md-4">
+
+        <div class="glass-card stat-card">
+
+            <div class="stat-content">
+
+                <div>
+
+                    <div class="stat-label">
+
+                        INVENTORY STATUS
+
+                    </div>
+
+                    <div class="stat-number">
+
+                        Active
+
+                    </div>
+
+                    <div class="stat-description">
+
+                        Store is operational
+
+                    </div>
+
+                </div>
+
+                <div class="stat-icon green-icon">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- CRUD -->
+
+    <div class="col-md-4">
+
+        <div class="glass-card stat-card">
+
+            <div class="stat-content">
+
+                <div>
+
+                    <div class="stat-label">
+
+                        MANAGEMENT
+
+                    </div>
+
+                    <div class="stat-number">
+
+                        CRUD
+
+                    </div>
+
+                    <div class="stat-description">
+
+                        Add · Edit · Delete
+
+                    </div>
+
+                </div>
+
+                <div class="stat-icon yellow-icon">
+
+                    <i class="fa-solid fa-gears"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!--=======================================
+        PRODUCT TABLE CARD
+========================================-->
+
+<div class="glass-card product-card">
+
+    <!-- CARD HEADER -->
+
+    <div class="product-card-header">
+
+        <div>
+
+            <h5 class="product-card-title">
+
+                All Products
+
+            </h5>
+
+            <p class="product-card-subtitle">
+
+                View and manage your complete inventory
+
+            </p>
+
+        </div>
+
+        <div class="product-count">
+
+            <i class="fa-solid fa-box me-2"></i>
+
+            {{ products|length }} products
+
+        </div>
+
+    </div>
+
+    {% if products %}
+
+    <!--=======================================
+            TABLE
+    ========================================-->
+
+    <div class="table-responsive">
+
+        <table class="table align-middle
+                      mb-0
+                      product-table">
+
+            <thead>
+
+                <tr>
+
+                    <th class="ps-4">
+                        #
+                    </th>
+
+                    <th>
+                        Product
+                    </th>
+
+                    <th>
+                        Category
+                    </th>
+
+                    <th>
+                        Price
+                    </th>
+
+                    <th>
+                        Quantity
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th class="text-end pe-4">
+                        Actions
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for product in products %}
+
+                <tr>
+
+                    <!-- NUMBER -->
+
+                    <td class="ps-4">
+
+                        <span class="product-number">
+
+                            {{ forloop.counter }}
+
+                        </span>
+
+                    </td>
+
+                    <!-- PRODUCT -->
+
+                    <td>
+
+                        <div class="product-info">
+
+                            <div class="product-image">
+
+                                <i class="fa-solid fa-box"></i>
+
+                            </div>
+
+                            <div>
+
+                                <div class="product-name">
+
+                                    {{ product.product_name }}
+
+                                </div>
+
+                                <div class="product-small-text">
+
+                                    Product ID #{{ product.id }}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+                    <!-- CATEGORY -->
+
+                    <td>
+
+                        <span class="category-badge">
+
+                            {{ product.category }}
+
+                        </span>
+
+                    </td>
+
+                    <!-- PRICE -->
+
+                    <td>
+
+                        <span class="product-price">
+
+                            ₹{{ product.price }}
+
+                        </span>
+
+                    </td>
+
+                    <!-- QUANTITY -->
+
+                    <td>
+
+                        <div class="quantity-wrapper">
+
+                            <span class="quantity-number">
+
+                                {{ product.quantity }}
+
+                            </span>
+
+                            <span class="quantity-text">
+
+                                units
+
+                            </span>
+
+                        </div>
+
+                    </td>
+
+                    <!-- STATUS -->
+
+                    <td>
+
+                        {% if product.quantity > 0 %}
+
+                            <span class="status-badge status-stock">
+
+                                <span class="status-dot"></span>
+
+                                In Stock
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="status-badge status-out">
+
+                                <span class="status-dot"></span>
+
+                                Out of Stock
+
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <!-- ACTIONS -->
+
+                    <td class="text-end pe-4">
+
+                        <div class="action-buttons">
+
+                            <!-- ADD TO CART -->
+
+                            {% if product.quantity > 0 %}
+
+                                <a
+                                    href="{% url 'add_to_cart' product.id %}"
+                                    class="action-btn cart-btn"
+                                    title="Add to Cart">
+
+                                    <i class="fa-solid fa-cart-plus"></i>
+
+                                </a>
+
+                            {% else %}
+
+                                <button
+                                    class="action-btn cart-btn disabled"
+                                    title="Out of Stock"
+                                    disabled>
+
+                                    <i class="fa-solid fa-cart-plus"></i>
+
+                                </button>
+
+                            {% endif %}
+
+                            <!-- EDIT -->
+
+                            <a
+                                href="{% url 'product_update' product.id %}"
+                                class="action-btn edit-btn"
+                                title="Edit Product">
+
+                                <i class="fa-solid fa-pen"></i>
+
+                            </a>
+
+                            <!-- DELETE -->
+
+                            <a
+                                href="{% url 'product_delete' product.id %}"
+                                class="action-btn delete-btn"
+                                title="Delete Product">
+                                <i class="fa-solid fa-trash"></i>
+
+                            </a>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <!--=======================================
+            EMPTY STATE
+    ========================================-->
+
+    <div class="empty-state">
+
+        <div class="empty-icon">
+
+            <i class="fa-solid fa-cart-shopping"></i>
+
+        </div>
+
+        <h4>
+
+            No Products Added Yet
+
+        </h4>
+
+        <p>
+
+            Your product inventory is currently empty.
+
+            <br>
+
+            Add your first product to get started.
+
+        </p>
+
+        <a href="{% url 'product_create' %}"
+           class="btn btn-primary add-product-btn">
+
+            <i class="fa-solid fa-plus me-2"></i>
+
+            Add Your First Product
+
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

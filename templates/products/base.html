@@ -1,0 +1,2317 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
+
+    <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}Flipkart{% endblock %}
+    </title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+
+            font-family: 'Inter', sans-serif;
+
+            color: #172337;
+
+            min-height: 100vh;
+
+            background:
+
+                radial-gradient(
+                    circle at 5% 10%,
+                    rgba(40, 116, 240, 0.25),
+                    transparent 28%
+                ),
+
+                radial-gradient(
+                    circle at 95% 15%,
+                    rgba(255, 229, 0, 0.25),
+                    transparent 25%
+                ),
+
+                radial-gradient(
+                    circle at 50% 90%,
+                    rgba(120, 90, 255, 0.10),
+                    transparent 30%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #eef4ff 0%,
+                    #f5f7fb 45%,
+                    #eef3ff 100%
+                );
+
+            background-attachment: fixed;
+        }
+
+        /* ==============================
+           TOP NAVBAR
+        ============================== */
+
+        .flipkart-navbar {
+
+            height: 72px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(255, 229, 0, 0.22) 0%,
+                    rgba(255, 229, 0, 0.12) 35%,
+                    rgba(255, 229, 0, 0.04) 65%,
+                    rgba(255, 255, 255, 0.02) 100%
+                );
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            border-bottom: 1px solid
+                rgba(255, 255, 255, 0.6);
+
+            box-shadow:
+                0 4px 25px
+                rgba(31, 38, 135, 0.08);
+
+            display: flex;
+            align-items: center;
+
+            position: sticky;
+            top: 0;
+
+            z-index: 999;
+        }
+
+        .navbar-container {
+            width: 100%;
+            max-width: 1280px;
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        /* ==============================
+           FLIPKART LOGO
+        ============================== */
+
+        .flipkart-logo {
+            width: 190px;
+            height: 62px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: transparent;
+            border-radius: 0;
+
+            text-decoration: none;
+            flex-shrink: 0;
+
+            box-shadow: none;
+        }
+
+        .flipkart-logo-image {
+            width: 190px;
+            height: 62px;
+
+            display: block;
+            object-fit: contain;
+
+            transform: scale(2.6);
+        }
+
+        .flipkart-logo:hover {
+
+            transform: translateY(-1px);
+
+            box-shadow: none;
+        }
+
+        /* ==============================
+           SEARCH BAR
+        ============================== */
+
+        .search-wrapper {
+
+            flex: 1;
+            max-width: 850px;
+
+            height: 52px;
+
+            background:
+                rgba(255, 255, 255, 0.75);
+
+            border: 1.5px solid
+                rgba(40, 116, 240, 0.45);
+
+            border-radius: 17px;
+
+            display: flex;
+            align-items: center;
+
+            box-shadow:
+                0 5px 20px
+                rgba(40, 116, 240, 0.08);
+
+            backdrop-filter: blur(10px);
+
+            transition:
+                border-color 0.25s ease,
+                box-shadow 0.25s ease,
+                transform 0.25s ease;
+        }
+
+        .search-wrapper:focus-within {
+
+            border-color: #2874f0;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(40, 116, 240, 0.10),
+                0 10px 30px
+                rgba(40, 116, 240, 0.12);
+
+            transform: translateY(-1px);
+        }
+
+        .search-icon {
+            font-size: 20px;
+            color: #777;
+            margin-left: 20px;
+            margin-right: 15px;
+        }
+
+        .search-input {
+
+            border: none;
+            outline: none;
+
+            width: 100%;
+            height: 100%;
+
+            font-size: 16px;
+
+            background: transparent;
+
+            color: #172337;
+
+            font-family: 'Inter', sans-serif;
+        }
+
+        .search-input::placeholder {
+            color: #7a8491;
+        }
+
+        /* ==============================
+           NAV LINKS
+        ============================== */
+
+        .nav-item-custom {
+            position: relative;
+            height: 70px;
+
+            display: flex;
+            align-items: center;
+
+            white-space: nowrap;
+        }
+
+        .nav-link-custom {
+            text-decoration: none;
+            color: #212121;
+
+            font-size: 16px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 8px;
+        }
+
+        .nav-link-custom:hover {
+            color: #2874f0;
+        }
+
+        .nav-link-custom i {
+            font-size: 21px;
+        }
+
+        .dropdown-arrow {
+            font-size: 12px !important;
+            margin-left: 2px;
+        }
+
+        /* ==============================
+           LOGIN DROPDOWN
+        ============================== */
+
+        .login-dropdown {
+            position: absolute;
+
+            top: 68px;
+            right: -40px;
+
+            width: 188px;
+
+            background: white;
+
+            box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+
+            display: none;
+
+            z-index: 1000;
+        }
+
+        .nav-item-custom:hover .login-dropdown {
+            display: block;
+        }
+
+        .login-dropdown::before {
+            content: "";
+
+            position: absolute;
+
+            top: -8px;
+            left: 88px;
+
+            width: 16px;
+            height: 16px;
+
+            background: #2f55d4;
+
+            transform: rotate(45deg);
+        }
+
+        .login-button {
+            display: block;
+
+            background: #2f55d4;
+            color: white;
+
+            text-align: center;
+
+            padding: 16px;
+
+            font-size: 21px;
+
+            text-decoration: none;
+
+            position: relative;
+            z-index: 2;
+        }
+
+        /* =========================================
+        PREMIUM GLASS EFFECT
+        ========================================= */
+
+        .glass-card {
+
+            background: rgba(255, 255, 255, 0.38);
+
+            border: 1px solid rgba(255, 255, 255, 0.65);
+
+            border-radius: 24px;
+
+            box-shadow:
+                0 12px 35px rgba(31, 38, 135, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.65);
+
+            backdrop-filter: blur(25px) saturate(150%);
+            -webkit-backdrop-filter: blur(25px) saturate(150%);
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease,
+                background 0.3s ease;
+        }
+
+        .glass-card:hover {
+
+            background: rgba(255, 255, 255, 0.48);
+
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 20px 50px rgba(31, 38, 135, 0.13),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+
+        /* ==============================
+           MORE DROPDOWN
+        ============================== */
+
+        .more-dropdown {
+            position: absolute;
+
+            top: 68px;
+            right: -20px;
+
+            width: 180px;
+
+            background: white;
+
+            box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+
+            display: none;
+
+            z-index: 1000;
+        }
+
+        .nav-item-custom:hover .more-dropdown {
+            display: block;
+        }
+
+        .more-dropdown a {
+            display: block;
+
+            padding: 14px 18px;
+
+            text-decoration: none;
+
+            color: #212121;
+
+            font-size: 14px;
+        }
+
+        .more-dropdown a:hover {
+            background: #f5f5f5;
+        }
+
+        /* ==============================
+           CART
+        ============================== */
+
+        .cart-link {
+            text-decoration: none;
+            color: #212121;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: 16px;
+
+            white-space: nowrap;
+        }
+
+        .cart-link i {
+            font-size: 25px;
+        }
+
+        /* ==============================
+           CATEGORY BAR
+        ============================== */
+
+        .category-bar {
+
+            position: fixed;
+
+            top: 72px;
+            left: 0;
+
+            width: 100%;
+
+            height: 58px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(255, 229, 0, 0.16),
+                    rgba(255, 255, 255, 0.30),
+                    rgba(255, 255, 255, 0.08)
+                );
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            border-bottom:
+                1px solid
+                rgba(255, 255, 255, 0.55);
+
+            box-shadow:
+                0 8px 25px
+                rgba(31, 38, 135, 0.08);
+
+            display: flex;
+            align-items: center;
+
+            z-index: 998;
+
+            /* HIDDEN */
+            transform: translateY(-100%);
+
+            opacity: 0;
+
+            transition:
+                transform 0.35s ease,
+                opacity 0.30s ease;
+
+            pointer-events: none;
+        }
+
+        .category-bar::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: -15px;
+            left: 0;
+
+            width: 100%;
+            height: 15px;
+        }
+
+        .flipkart-navbar:hover + .category-bar {
+
+            transform: translateY(0);
+
+            opacity: 1;
+
+            pointer-events: auto;
+        }
+
+        .category-container {
+            max-width: 1280px;
+
+            width: 100%;
+
+            margin: auto;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            padding: 0 20px;
+        }
+
+        .category-item {
+            text-decoration: none;
+
+            color: #212121;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            text-align: center;
+
+            padding: 10px 12px;
+
+            transition: 0.2s;
+        }
+
+        .category-item:hover {
+            color: #2874f0;
+        }
+
+        .category-icon {
+            display: block;
+
+            font-size: 21px;
+
+            margin-bottom: 3px;
+        }
+
+        /* ==============================
+           MAIN CONTENT
+        ============================== */
+
+        .main-container {
+            max-width: 1280px;
+
+            margin: 20px auto;
+
+            padding: 0 20px;
+        }
+
+        /* ==============================
+           ALERTS
+        ============================== */
+
+        .alert {
+            border-radius: 4px;
+        }
+
+        /* ==============================
+           RESPONSIVE
+        ============================== */
+
+        @media (max-width: 1000px) {
+
+            .flipkart-logo {
+                width: 150px;
+            }
+
+            .nav-link-custom span,
+            .cart-link span {
+                display: none;
+            }
+
+            .category-container {
+                overflow-x: auto;
+            }
+
+            .category-item {
+                min-width: 100px;
+            }
+
+        }
+
+        /* =========================================
+        GLASS CARD SYSTEM
+        ========================================= */
+
+        .glass-card {
+
+            background:
+                rgba(255, 255, 255, 0.68);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.85);
+
+            border-radius: 22px;
+
+            box-shadow:
+                0 15px 45px
+                rgba(31, 38, 135, 0.08);
+
+            backdrop-filter:
+                blur(20px);
+
+            -webkit-backdrop-filter:
+                blur(20px);
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+
+        .glass-card:hover {
+
+            box-shadow:
+                0 20px 55px
+                rgba(31, 38, 135, 0.12);
+
+        }
+
+        /* =========================================
+        GLASS CARD SYSTEM
+        ========================================= */
+
+        /* =========================================
+        PAGE HEADER
+        ========================================= */
+
+        .page-header-card {
+
+            padding: 28px 30px;
+
+        }
+
+
+        .page-title {
+
+            font-family: 'Poppins', sans-serif;
+
+            font-size: 28px;
+
+            font-weight: 700;
+
+            letter-spacing: -0.6px;
+
+            color: #172337;
+
+        }
+
+
+        .page-subtitle {
+
+            margin-top: 5px;
+
+            font-size: 14px;
+
+            color: #7a8491;
+
+        }
+
+        /* ==========================================
+        PROMO CAROUSEL
+        ========================================== */
+
+        .promo-carousel {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 22px;
+            margin-bottom: 30px;
+
+            box-shadow:
+                0 12px 30px rgba(31, 38, 135, 0.10);
+
+            animation: promoCarouselAppear 0.55s ease;
+        }
+
+
+        /* BANNER IMAGE */
+
+        .promo-banner {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 22px;
+        }
+
+
+        /* SMOOTH SLIDE */
+
+        .promo-carousel .carousel-item {
+            transition:
+                transform 0.7s ease-in-out;
+        }
+
+
+        /* ==========================================
+        LEFT / RIGHT ARROWS
+        ========================================== */
+
+        .promo-carousel .carousel-control-prev,
+        .promo-carousel .carousel-control-next {
+
+            width: 7%;
+
+            opacity: 0;
+
+            transition: opacity 0.25s ease;
+        }
+
+
+        .promo-carousel:hover .carousel-control-prev,
+        .promo-carousel:hover .carousel-control-next {
+            opacity: 1;
+        }
+
+
+        .promo-carousel .carousel-control-prev-icon,
+        .promo-carousel .carousel-control-next-icon {
+
+            width: 38px;
+            height: 38px;
+
+            border-radius: 50%;
+
+            background-color:
+                rgba(20, 40, 80, 0.55);
+
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+
+            background-size: 45%;
+        }
+
+
+        /* ==========================================
+        CAROUSEL INDICATORS
+        ========================================== */
+
+        .promo-carousel .carousel-indicators {
+
+            margin-bottom: 10px;
+
+            gap: 5px;
+        }
+
+
+        .promo-carousel .carousel-indicators button {
+
+            width: 22px;
+            height: 4px;
+
+            margin: 0;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background-color:
+                rgba(255, 255, 255, 0.70);
+
+            opacity: 1;
+
+            transition:
+                width 0.25s ease;
+        }
+
+
+        .promo-carousel .carousel-indicators button.active {
+
+            width: 38px;
+
+            background-color: #2874f0;
+        }
+
+
+        /* ==========================================
+        ENTRANCE ANIMATION
+        ========================================== */
+
+        @keyframes promoCarouselAppear {
+
+            from {
+                opacity: 0;
+                transform:
+                    translateY(18px)
+                    scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+
+        }
+        /* =========================================
+        STATISTICS
+        ========================================= */
+
+        .stat-card {
+            min-height: 120px;
+
+            padding: 24px 26px;
+
+            background: rgba(255, 255, 255, 0.30);
+
+            border: 1px solid rgba(255, 255, 255, 0.70);
+
+            border-radius: 22px;
+
+            backdrop-filter: blur(25px) saturate(150%);
+            -webkit-backdrop-filter: blur(25px) saturate(150%);
+
+            box-shadow:
+                0 12px 35px rgba(31, 38, 135, 0.07),
+                inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+            transition: all 0.3s ease;
+        }
+
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+
+            background: rgba(255, 255, 255, 0.40);
+
+            box-shadow:
+                0 18px 40px rgba(31, 38, 135, 0.11);
+        }
+
+        .stat-content {
+            height: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+
+        .stat-label {
+            font-size: 10px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.1px;
+
+            color: #8995a8;
+
+            white-space: nowrap;
+        }
+
+        .stat-number {
+            font-family: 'Poppins', sans-serif;
+
+            font-size: 25px;
+
+            font-weight: 700;
+
+            line-height: 1.2;
+
+            margin-top: 8px;
+
+            color: #172337;
+        }
+
+
+        .stat-description {
+            font-size: 12px;
+
+            color: #8a94a6;
+
+            margin-top: 7px;
+        }
+
+
+        .stat-icon {
+            width: 52px;
+            height: 52px;
+
+            min-width: 52px;
+
+            border-radius: 17px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 20px;
+        }
+
+        .blue-icon {
+
+            background:
+                rgba(40, 116, 240, 0.12);
+
+            color: #2874f0;
+
+        }
+
+
+        .green-icon {
+
+            background:
+                rgba(25, 135, 84, 0.12);
+
+            color: #198754;
+
+        }
+
+
+        .yellow-icon {
+
+            background:
+                rgba(255, 193, 7, 0.16);
+
+            color: #e5a900;
+
+        }
+
+        /* =========================================
+        PRODUCT CARD
+        ========================================= */
+
+        .product-card {
+
+            background: rgba(255, 255, 255, 0.22);
+
+            border: 1px solid rgba(255, 255, 255, 0.65);
+
+            border-radius: 24px;
+
+            overflow: hidden;
+
+            backdrop-filter: blur(25px) saturate(150%);
+            -webkit-backdrop-filter: blur(25px) saturate(150%);
+
+        }
+
+
+        .product-card-header {
+
+            padding: 24px 28px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            border-bottom:
+                1px solid
+                rgba(0, 0, 0, 0.05);
+
+        }
+
+
+        .product-card-title {
+
+            font-family: 'Poppins', sans-serif;
+
+            font-weight: 700;
+
+            margin: 0;
+
+            color: #172337;
+
+        }
+
+
+        .product-card-subtitle {
+
+            font-size: 12px;
+
+            color: #8a94a6;
+
+            margin: 4px 0 0;
+
+        }
+
+
+        .product-count {
+
+            background:
+                rgba(40, 116, 240, 0.08);
+
+            color: #2874f0;
+
+            border-radius: 10px;
+
+            padding: 8px 13px;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+        }
+
+        /* =========================================
+        PRODUCT TABLE
+        ========================================= */
+
+        .product-table {
+
+            border-collapse: separate;
+
+            border-spacing: 0;
+
+        }
+
+
+        .product-table thead th {
+
+            background:
+                rgba(248, 250, 253, 0.75);
+
+            border: none;
+
+            padding-top: 15px;
+
+            padding-bottom: 15px;
+
+            color: #8a94a6;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.8px;
+
+        }
+
+
+        .product-table tbody tr {
+
+            background:
+                rgba(255,255,255,0.30);
+
+            transition:
+                background 0.25s ease,
+                transform 0.25s ease;
+
+        }
+
+
+        .product-table tbody tr:hover {
+
+            background:
+                rgba(255,255,255,0.90);
+
+        }
+
+
+        .product-table tbody td {
+
+            border-bottom:
+                1px solid
+                rgba(0,0,0,0.035);
+
+            padding-top: 17px;
+
+            padding-bottom: 17px;
+
+        }
+
+
+        .product-table tbody tr:last-child td {
+
+            border-bottom: none;
+
+        }
+        
+        /* =========================================
+        PRODUCT INFORMATION
+        ========================================= */
+
+        .product-info {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+        }
+
+
+        .product-image {
+
+            width: 48px;
+
+            height: 48px;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f1f5fb,
+                    #e5ebf4
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: #2874f0;
+
+            font-size: 18px;
+
+        }
+
+
+        .product-name {
+
+            font-family: 'Poppins', sans-serif;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            color: #172337;
+
+        }
+
+
+        .product-small-text {
+
+            font-size: 10px;
+
+            color: #9aa3b2;
+
+            margin-top: 2px;
+
+        }
+
+
+        .product-number {
+
+            color: #9aa3b2;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+        }
+
+        /* =========================================
+        CATEGORY
+        ========================================= */
+
+        .category-badge {
+
+            display: inline-block;
+
+            padding: 6px 10px;
+
+            border-radius: 9px;
+
+            background:
+                rgba(40,116,240,0.08);
+
+            color: #2874f0;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+        }
+
+        /* =========================================
+        QUANTITY
+        ========================================= */
+
+        .quantity-wrapper {
+
+            display: flex;
+
+            align-items: baseline;
+
+            gap: 4px;
+
+        }
+
+
+        .quantity-number {
+
+            font-weight: 600;
+
+            font-size: 14px;
+
+        }
+
+
+        .quantity-text {
+
+            font-size: 10px;
+
+            color: #9aa3b2;
+
+        }
+
+        /* =========================================
+        STATUS
+        ========================================= */
+
+        .status-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding: 6px 10px;
+
+            border-radius: 20px;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+        }
+
+
+        .status-dot {
+
+            width: 6px;
+
+            height: 6px;
+
+            border-radius: 50%;
+
+        }
+
+
+        .status-stock {
+
+            background:
+                rgba(25,135,84,0.10);
+
+            color: #198754;
+
+        }
+
+
+        .status-stock .status-dot {
+
+            background: #198754;
+
+        }
+
+
+        .status-out {
+
+            background:
+                rgba(220,53,69,0.10);
+
+            color: #dc3545;
+
+        }
+
+
+        .status-out .status-dot {
+
+            background: #dc3545;
+
+        }
+
+        /* =========================================
+        ACTION BUTTONS
+        ========================================= */
+
+        .action-buttons {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 7px;
+
+        }
+
+
+        .action-btn {
+
+            width: 34px;
+
+            height: 34px;
+
+            border-radius: 10px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-decoration: none;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+
+        }
+
+
+        .action-btn:hover {
+
+            transform:
+                translateY(-2px);
+
+        }
+
+
+        .edit-btn {
+
+            background:
+                rgba(40,116,240,0.10);
+
+            color: #2874f0;
+
+        }
+
+
+        .edit-btn:hover {
+
+            color: #2874f0;
+
+            box-shadow:
+                0 6px 15px
+                rgba(40,116,240,0.15);
+
+        }
+
+
+        .delete-btn {
+
+            background:
+                rgba(220,53,69,0.10);
+
+            color: #dc3545;
+
+        }
+
+
+        .delete-btn:hover {
+
+            color: #dc3545;
+
+            box-shadow:
+                0 6px 15px
+                rgba(220,53,69,0.15);
+
+        }
+
+        /* =========================================
+        EMPTY STATE
+        ========================================= */
+
+        .empty-state {
+
+            text-align: center;
+
+            padding: 75px 20px;
+
+        }
+
+
+        .empty-icon {
+
+            width: 90px;
+
+            height: 90px;
+
+            margin: 0 auto 20px;
+
+            border-radius: 28px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                rgba(40,116,240,0.08);
+
+            color: #2874f0;
+
+            font-size: 35px;
+
+        }
+
+
+        .empty-state h4 {
+
+            font-family: 'Poppins', sans-serif;
+
+            font-weight: 700;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .empty-state p {
+
+            color: #8a94a6;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+        }
+
+        /* =========================================
+        ADD PRODUCT BUTTON
+        ========================================= */
+
+        .add-product-btn {
+            border: none;
+            border-radius: 12px;
+
+            padding: 11px 20px;
+
+            min-width: 145px;
+            height: 44px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+
+            color: #ffffff;
+
+            background: linear-gradient(
+                135deg,
+                #2874f0,
+                #1557c0
+            );
+
+            box-shadow:
+                0 7px 20px
+                rgba(40,116,240,0.22);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .add-product-btn:hover {
+            background: linear-gradient(
+                135deg,
+                #2874f0,
+                #1557c0
+            );
+
+            color: #ffffff;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 28px
+                rgba(40,116,240,0.30);
+        }
+
+        /* =========================================
+        CART ACTION BUTTON
+        ========================================= */
+
+        .cart-btn {
+
+            color: #2874f0;
+
+            background: rgba(40, 116, 240, 0.10);
+
+            border: 1px solid rgba(40, 116, 240, 0.18);
+
+        }
+
+
+        .cart-btn:hover {
+
+            color: white;
+
+            background: linear-gradient(
+                135deg,
+                #2874f0,
+                #5b9cff
+            );
+
+            transform: translateY(-3px) scale(1.05);
+
+            box-shadow:
+                0 8px 20px rgba(40, 116, 240, 0.25);
+
+        }
+
+
+        .cart-btn.disabled {
+
+            opacity: 0.35;
+
+            cursor: not-allowed;
+
+        }
+
+
+        .cart-btn.disabled:hover {
+
+            transform: none;
+
+            background: rgba(40, 116, 240, 0.10);
+
+            box-shadow: none;
+
+        }
+
+        /* =========================================
+        GLASS TOAST NOTIFICATIONS
+        ========================================= */
+
+        .toast-container-custom {
+
+            position: fixed;
+
+            top: 88px;
+            right: 24px;
+
+            width: 390px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 14px;
+
+            z-index: 9999;
+
+            pointer-events: none;
+
+        }
+
+
+        /* =========================================
+        TOAST
+        ========================================= */
+
+        .custom-toast {
+
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            min-height: 78px;
+
+            padding: 15px 16px;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            pointer-events: auto;
+
+            background: rgba(255, 255, 255, 0.52);
+
+            backdrop-filter: blur(25px) saturate(170%);
+
+            -webkit-backdrop-filter: blur(25px) saturate(170%);
+
+            border: 1px solid rgba(255, 255, 255, 0.70);
+
+            box-shadow:
+                0 18px 45px rgba(31, 38, 135, 0.16),
+                inset 0 1px 0 rgba(255,255,255,0.70);
+
+            animation:
+                toastSlideIn 0.45s cubic-bezier(.2,.8,.2,1)
+                forwards;
+
+        }
+
+
+        /* =========================================
+        SUCCESS
+        ========================================= */
+
+        .toast-success {
+
+            border-left: 4px solid #22a06b;
+
+        }
+
+
+        /* =========================================
+        ERROR
+        ========================================= */
+
+        .toast-error {
+
+            border-left: 4px solid #e53935;
+
+        }
+
+
+        /* =========================================
+        WARNING
+        ========================================= */
+
+        .toast-warning {
+
+            border-left: 4px solid #f5a623;
+
+        }
+
+
+        /* =========================================
+        INFO
+        ========================================= */
+
+        .toast-info {
+
+            border-left: 4px solid #2874f0;
+
+        }
+
+
+        /* =========================================
+        ICON
+        ========================================= */
+
+        .toast-icon {
+
+            width: 43px;
+            height: 43px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 13px;
+
+            font-size: 17px;
+
+        }
+
+
+        /* Success icon */
+
+        .toast-success .toast-icon {
+
+            color: #168653;
+
+            background: rgba(34,160,107,0.12);
+
+        }
+
+
+        /* Error icon */
+
+        .toast-error .toast-icon {
+
+            color: #d32f2f;
+
+            background: rgba(229,57,53,0.11);
+
+        }
+
+
+        /* Warning icon */
+
+        .toast-warning .toast-icon {
+
+            color: #d88900;
+
+            background: rgba(245,166,35,0.13);
+
+        }
+
+
+        /* Info icon */
+
+        .toast-info .toast-icon {
+
+            color: #2874f0;
+
+            background: rgba(40,116,240,0.11);
+
+        }
+
+
+        /* =========================================
+        CONTENT
+        ========================================= */
+
+        .toast-content {
+
+            flex: 1;
+
+            min-width: 0;
+
+        }
+
+
+        .toast-title {
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            color: #202124;
+
+            margin-bottom: 3px;
+
+        }
+
+
+        .toast-message {
+
+            font-size: 13px;
+
+            line-height: 1.45;
+
+            color: #666;
+
+            word-break: break-word;
+
+        }
+
+
+        /* =========================================
+        CLOSE BUTTON
+        ========================================= */
+
+        .toast-close {
+
+            width: 28px;
+            height: 28px;
+
+            flex-shrink: 0;
+
+            border: none;
+
+            background: transparent;
+
+            color: #777;
+
+            border-radius: 8px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+
+        }
+
+
+        .toast-close:hover {
+
+            color: #202124;
+
+            background: rgba(0,0,0,0.06);
+
+        }
+
+
+        /* =========================================
+        PROGRESS BAR
+        ========================================= */
+
+        .toast-progress {
+
+            position: absolute;
+
+            bottom: 0;
+            left: 0;
+
+            height: 3px;
+
+            width: 100%;
+
+            transform-origin: left;
+
+            animation: toastProgress 4.5s linear forwards;
+
+        }
+
+
+        /* Colors */
+
+        .toast-success .toast-progress {
+
+            background: #22a06b;
+
+        }
+
+        .toast-error .toast-progress {
+
+            background: #e53935;
+
+        }
+
+        .toast-warning .toast-progress {
+
+            background: #f5a623;
+
+        }
+
+        .toast-info .toast-progress {
+
+            background: #2874f0;
+
+        }
+
+
+        /* =========================================
+        ANIMATIONS
+        ========================================= */
+
+        @keyframes toastSlideIn {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateX(110%)
+                    scale(0.94);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateX(0)
+                    scale(1);
+
+            }
+
+        }
+
+
+        @keyframes toastProgress {
+
+            from {
+
+                transform: scaleX(1);
+
+            }
+
+            to {
+
+                transform: scaleX(0);
+
+            }
+
+        }
+
+
+        /* =========================================
+        EXIT ANIMATION
+        ========================================= */
+
+        .custom-toast.toast-removing {
+
+            animation:
+                toastSlideOut 0.35s ease forwards;
+
+        }
+
+
+        @keyframes toastSlideOut {
+
+            from {
+
+                opacity: 1;
+
+                transform:
+                    translateX(0)
+                    scale(1);
+
+            }
+
+            to {
+
+                opacity: 0;
+
+                transform:
+                    translateX(110%)
+                    scale(0.94);
+
+            }
+
+        }
+
+
+        /* =========================================
+        MOBILE
+        ========================================= */
+
+        @media (max-width: 600px) {
+
+            .toast-container-custom {
+
+                top: 82px;
+
+                left: 15px;
+                right: 15px;
+
+                width: auto;
+
+            }
+
+            .custom-toast {
+
+                min-height: 72px;
+
+            }
+
+        }
+
+        /* ==========================================
+        FESTIVE SALE LABEL
+        ========================================== */
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+
+            padding: 6px 12px;
+            margin-bottom: 8px;
+
+            border-radius: 20px;
+
+            background: rgba(255, 229, 0, 0.25);
+            border: 1px solid rgba(255, 229, 0, 0.35);
+
+            color: #2874f0;
+
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1px;
+
+            box-shadow:
+                0 5px 15px rgba(255, 229, 0, 0.10);
+
+            animation: saleLabelAppear 0.45s ease;
+        }
+
+        .section-label i {
+            color: #2874f0;
+            font-size: 11px;
+        }
+
+        @keyframes saleLabelAppear {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==========================================
+     HEADER
+========================================== -->
+
+<header class="flipkart-navbar">
+
+    <div class="navbar-container">
+
+
+        <!-- LOGO -->
+
+        <a href="{% url 'product_list' %}"
+        class="flipkart-logo">
+
+            <img
+                src="{% static 'images/flipkart-logo2.png' %}"
+                alt="Flipkart"
+                class="flipkart-logo-image">
+
+        </a>
+
+
+        <!-- SEARCH -->
+
+        <div class="search-wrapper">
+
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+
+            <input
+                type="text"
+                class="search-input"
+                placeholder="Search for Products, Brands and More">
+
+        </div>
+
+
+        <!-- LOGIN -->
+
+        <div class="nav-item-custom">
+
+            <a href="#"
+               class="nav-link-custom">
+
+                <i class="fa-regular fa-circle-user"></i>
+
+                <span>Login</span>
+
+                <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+
+            </a>
+
+
+            <div class="login-dropdown">
+
+                <a href="#"
+                   class="login-button">
+
+                    Login
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- MORE -->
+
+        <div class="nav-item-custom">
+
+            <a href="#"
+               class="nav-link-custom">
+
+                <span>More</span>
+
+                <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+
+            </a>
+
+
+            <div class="more-dropdown">
+
+                <a href="{% url 'product_create' %}">
+                    <i class="fa-solid fa-plus me-2"></i>
+                    Add Product
+                </a>
+
+                <a href="{% url 'product_list' %}">
+                    <i class="fa-solid fa-box me-2"></i>
+                    Products
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-circle-info me-2"></i>
+                    About
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- CART -->
+
+        <a href="{% url 'cart' %}" class="nav-cart">
+
+            <i class="fa-solid fa-cart-shopping"></i>
+
+            <span>Cart</span>
+
+        </a>
+
+
+    </div>
+
+</header>
+
+<!-- ==========================================
+     CATEGORY BAR
+========================================== -->
+
+<div class="category-bar">
+
+    <div class="category-container">
+
+        <a href="#" class="category-item">
+
+            <i class="fa-solid fa-mobile-screen category-icon"></i>
+
+            Mobiles
+
+        </a>
+
+        <a href="#" class="category-item">
+
+            <i class="fa-solid fa-laptop category-icon"></i>
+
+            Electronics
+
+        </a>
+
+        <a href="#" class="category-item">
+
+            <i class="fa-solid fa-shirt category-icon"></i>
+
+            Fashion
+
+        </a>
+
+        <a href="#" class="category-item">
+
+            <i class="fa-solid fa-house category-icon"></i>
+
+            Home
+
+        </a>
+
+        <a href="#" class="category-item">
+
+            <i class="fa-solid fa-kitchen-set category-icon"></i>
+
+            Appliances
+
+        </a>
+
+        <a href="#" class="category-item">
+
+            <i class="fa-solid fa-plane category-icon"></i>
+
+            Travel
+
+        </a>
+
+        <a href="#" class="category-item">
+
+            <i class="fa-solid fa-gamepad category-icon"></i>
+
+            Toys & Games
+
+        </a>
+
+        <a href="#" class="category-item">
+
+            <i class="fa-solid fa-basket-shopping category-icon"></i>
+
+            Grocery
+
+        </a>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     MAIN
+========================================== -->
+
+<main class="main-container">
+
+    {% if messages %} 
+    
+        {% for message in messages %} 
+    
+            <div class="alert 
+                {% if message.tags == 'success' %} 
+                    alert-success 
+                {% elif message.tags == 'error' %} 
+                    alert-danger 
+                {% else %} 
+                    alert-info 
+                {% endif %} 
+                alert-dismissible fade show"> 
+    
+                {{ message }} 
+    
+                <button type="button" 
+                        class="btn-close" 
+                        data-bs-dismiss="alert"> 
+                </button> 
+    
+            </div> 
+    
+        {% endfor %} 
+    
+    {% endif %}
+
+    {% block content %}
+
+    {% endblock %}
+
+</main>
+
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+<script>
+
+/* =========================================
+   TOAST NOTIFICATIONS
+========================================= */
+
+function closeToast(button) {
+
+    const toast = button.closest('.custom-toast');
+
+    if (!toast) return;
+
+    toast.classList.add('toast-removing');
+
+    setTimeout(() => {
+
+        toast.remove();
+
+    }, 350);
+
+}
+
+/* =========================================
+   AUTO CLOSE
+========================================= */
+
+document.addEventListener(
+    'DOMContentLoaded',
+    function () {
+
+        const toasts =
+            document.querySelectorAll(
+                '.custom-toast'
+            );
+
+        toasts.forEach(function (toast) {
+
+            setTimeout(function () {
+
+                toast.classList.add(
+                    'toast-removing'
+                );
+
+                setTimeout(function () {
+
+                    toast.remove();
+
+                }, 350);
+
+            }, 4500);
+
+        });
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

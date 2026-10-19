@@ -1,0 +1,741 @@
+{% extends 'products/base.html' %}
+
+{% block title %}
+    {% if product %}
+        Edit Product
+    {% else %}
+        Add Product
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="product-form-page">
+
+        <div class="product-form-card add-product-card">
+
+            <!-- FORM HEADER -->
+            <div class="form-header">
+
+                <div class="form-header-icon">
+                    <i class="fa-solid fa-box-open"></i>
+                </div>
+
+                <div>
+                    <h2>
+                        {% if product %}
+                            Edit Product
+                        {% else %}
+                            Add New Product
+                        {% endif %}
+                    </h2>
+
+                    <p>
+                        {% if product %}
+                            Update the details of your product
+                        {% else %}
+                            Add a new product to your inventory
+                        {% endif %}
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- FORM -->
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <!-- PRODUCT NAME -->
+                <div class="form-group-custom">
+
+                    <label>
+                        <i class="fa-solid fa-tag"></i>
+                        Product Name
+                    </label>
+
+                    <div class="custom-input-wrapper">
+
+                        <i class="fa-solid fa-box custom-input-icon"></i>
+
+                        <input
+                            type="text"
+                            name="product_name"
+                            placeholder="Enter product name"
+                            value="{{ product.product_name|default:'' }}"
+                            required>
+
+                    </div>
+
+                </div>
+
+                <!-- CATEGORY -->
+                <div class="form-group-custom">
+
+                    <label>
+                        <i class="fa-solid fa-layer-group"></i>
+                        Category
+                    </label>
+
+                    <div class="custom-input-wrapper">
+
+                        <i class="fa-solid fa-list custom-input-icon"></i>
+
+                        <select name="category" required>
+
+                            <option value="" disabled
+                                {% if not product %}selected{% endif %}>
+                                Select category
+                            </option>
+
+                            <option value="Electronics"
+                                {% if product.category == "Electronics" %}selected{% endif %}>
+                                Electronics
+                            </option>
+
+                            <option value="Mobiles"
+                                {% if product.category == "Mobiles" %}selected{% endif %}>
+                                Mobiles
+                            </option>
+
+                            <option value="Fashion"
+                                {% if product.category == "Fashion" %}selected{% endif %}>
+                                Fashion
+                            </option>
+
+                            <option value="Home & Kitchen"
+                                {% if product.category == "Home & Kitchen" %}selected{% endif %}>
+                                Home & Kitchen
+                            </option>
+
+                            <option value="Books"
+                                {% if product.category == "Books" %}selected{% endif %}>
+                                Books
+                            </option>
+
+                            <option value="Sports"
+                                {% if product.category == "Sports" %}selected{% endif %}>
+                                Sports
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <!-- PRICE + QUANTITY -->
+                <div class="form-row-custom">
+
+                    <!-- PRICE -->
+                    <div class="form-group-custom">
+
+                        <label>
+                            <i class="fa-solid fa-indian-rupee-sign"></i>
+                            Price
+                        </label>
+
+                        <div class="custom-input-wrapper">
+
+                            <span class="currency-symbol">
+                                ₹
+                            </span>
+
+                            <input
+                                type="number"
+                                name="price"
+                                step="0.01"
+                                min="0"
+                                placeholder="0.00"
+                                value="{{ product.price|default:'' }}"
+                                required>
+
+                        </div>
+
+                    </div>
+
+                    <!-- QUANTITY -->
+                    <div class="form-group-custom">
+
+                        <label>
+                            <i class="fa-solid fa-cubes"></i>
+                            Quantity
+                        </label>
+
+                        <div class="custom-input-wrapper">
+
+                            <i class="fa-solid fa-hashtag custom-input-icon"></i>
+
+                            <input
+                                type="number"
+                                name="quantity"
+                                min="0"
+                                placeholder="Enter quantity"
+                                value="{{ product.quantity|default:'' }}"
+                                required>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- BUTTONS -->
+                <div class="form-actions">
+
+                    <a href="{% url 'product_list' %}"
+                    class="cancel-btn">
+
+                        <i class="fa-solid fa-arrow-left"></i>
+
+                        Cancel
+
+                    </a>
+
+                    <button type="submit"
+                            class="save-product-btn">
+
+                        <i class="fa-solid fa-check"></i>
+
+                        {% if product %}
+                            Update Product
+                        {% else %}
+                            Add Product
+                        {% endif %}
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <style>
+
+    /*==========================================
+            PRODUCT FORM PAGE
+    ==========================================*/
+
+    .product-form-page {
+
+        width: 100%;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: flex-start;
+
+        padding: 35px 20px 60px;
+
+    }
+
+    /*==========================================
+            MAIN FORM CARD
+    ==========================================*/
+
+    .product-form-card {
+
+        width: 100%;
+
+        max-width: 720px;
+
+        padding: 34px 38px;
+
+        background: rgba(255, 255, 255, 0.28);
+
+        border: 1px solid rgba(255, 255, 255, 0.65);
+
+        border-radius: 26px;
+
+        backdrop-filter: blur(25px) saturate(150%);
+
+        -webkit-backdrop-filter: blur(25px) saturate(150%);
+
+        box-shadow:
+
+            0 18px 50px
+            rgba(31, 38, 135, 0.10),
+
+            inset 0 1px 0
+            rgba(255, 255, 255, 0.65);
+
+    }
+
+    /*==========================================
+            ADD PRODUCT ENTRANCE ANIMATION
+    ==========================================*/
+
+        .add-product-card {
+
+            animation: addProductAppear 0.45s ease;
+
+        }
+
+        @keyframes addProductAppear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(25px)
+                    scale(0.97);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+
+            }
+
+        }
+
+    /*==========================================
+            HEADER
+    ==========================================*/
+
+    .form-header {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 18px;
+
+        padding-bottom: 25px;
+
+        margin-bottom: 32px;
+
+        border-bottom:
+            1px solid
+            rgba(0, 0, 0, 0.05);
+
+    }
+
+    .form-header-icon {
+
+        width: 58px;
+
+        height: 58px;
+
+        min-width: 58px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border-radius: 18px;
+
+        background:
+            rgba(40, 116, 240, 0.10);
+
+        color: #2874f0;
+
+        font-size: 23px;
+
+    }
+
+    .form-header h2 {
+
+        margin: 0;
+
+        font-family: 'Poppins', sans-serif;
+
+        font-size:30px;
+
+        font-weight: 700;
+
+        color: #172337;
+
+    }
+
+    .form-header p {
+
+        margin: 5px 0 0;
+
+        color: #8995a8;
+
+        font-size: 16px;
+
+    }
+
+    /*==========================================
+            FORM GROUP
+    ==========================================*/
+
+    .form-group-custom {
+
+        margin-bottom: 26px;
+
+    }
+
+    .form-group-custom label {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 7px;
+
+        margin-bottom: 9px;
+
+        font-size: 15px;
+
+        font-weight: 700;
+
+        color: #536174;
+
+    }
+
+    .form-group-custom label i {
+
+        color: #2874f0;
+
+        font-size: 11px;
+
+    }
+
+    /*==========================================
+            INPUT WRAPPER
+    ==========================================*/
+
+    .custom-input-wrapper {
+
+        position: relative;
+
+        width: 100%;
+
+        display: flex;
+
+        align-items: center;
+
+    }
+
+    /*==========================================
+            INPUTS + SELECT
+    ==========================================*/
+
+    .custom-input-wrapper input,
+    .custom-input-wrapper select {
+
+        width: 100%;
+
+        height: 48px;
+
+        border: 1px solid
+            rgba(120, 135, 160, 0.20);
+
+        border-radius: 13px;
+
+        outline: none;
+
+        background:
+            rgba(255, 255, 255, 0.38);
+
+        color: #172337;
+
+        font-family: 'Inter', sans-serif;
+
+        font-size: 16px;
+
+        transition:
+            border 0.2s ease,
+            box-shadow 0.2s ease,
+            background 0.2s ease;
+
+    }
+
+    /* INPUT PADDING */
+
+    .custom-input-wrapper input {
+
+        padding: 0 15px 0 44px;
+
+    }
+
+    .custom-input-wrapper select {
+
+        padding: 0 42px 0 44px;
+
+        appearance: none;
+
+        cursor: pointer;
+
+    }
+
+    .custom-input-wrapper input::placeholder {
+        color: #8a94a6;
+        font-size: 15px;
+    }
+
+    /*==========================================
+            INPUT ICON
+    ==========================================*/
+
+    .custom-input-icon {
+
+        position: absolute;
+
+        left: 16px;
+
+        z-index: 2;
+
+        color: #8b96a8;
+
+        font-size: 13px;
+
+        pointer-events: none;
+
+    }
+
+    /*==========================================
+            CURRENCY
+    ==========================================*/
+
+    .currency-symbol {
+
+        position: absolute;
+
+        left: 16px;
+
+        z-index: 2;
+
+        font-size: 14px;
+
+        font-weight: 700;
+
+        color: #2874f0;
+
+        pointer-events: none;
+
+    }
+
+    /*==========================================
+            INPUT FOCUS
+    ==========================================*/
+
+    .custom-input-wrapper input:focus,
+    .custom-input-wrapper select:focus {
+
+        border-color: rgba(40, 116, 240, 0.55);
+
+        background:
+            rgba(255, 255, 255, 0.55);
+
+        box-shadow:
+            0 0 0 4px
+            rgba(40, 116, 240, 0.08);
+
+    }
+
+    /*==========================================
+            PRICE + QUANTITY ROW
+    ==========================================*/
+
+    .form-row-custom {
+
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+
+        gap: 18px;
+
+    }
+
+    /*==========================================
+            BUTTON AREA
+    ==========================================*/
+
+    .form-actions {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 15px;
+
+        margin-top: 30px;
+
+        padding-top: 25px;
+
+        border-top:
+            1px solid
+            rgba(0, 0, 0, 0.05);
+
+    }
+
+    /*==========================================
+            CANCEL BUTTON
+    ==========================================*/
+
+    .cancel-btn {
+
+        height: 48px;
+
+        padding: 0 22px;
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 8px;
+
+        border-radius: 11px;
+
+        border: 1px solid
+            rgba(120, 135, 160, 0.25);
+
+        background:
+            rgba(255, 255, 255, 0.35);
+
+        color: #687588;
+
+        text-decoration: none;
+
+        font-size: 15px;
+
+        font-weight: 600;
+
+        transition: all 0.2s ease;
+
+    }
+
+    .cancel-btn:hover {
+
+        color: #172337;
+
+        background:
+            rgba(255, 255, 255, 0.60);
+
+        transform: translateY(-1px);
+
+    }
+
+    /*==========================================
+            SAVE BUTTON
+    ==========================================*/
+
+    .save-product-btn {
+
+        height: 48px;
+
+        min-width: 175px;
+
+        padding: 0 24px;
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 8px;
+
+        border: none;
+
+        border-radius: 11px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #2874f0,
+                #1557c0
+            );
+
+        color: white;
+
+        font-family: 'Inter', sans-serif;
+
+        font-size: 15px;
+
+        font-weight: 600;
+
+        box-shadow:
+            0 7px 20px
+            rgba(40, 116, 240, 0.20);
+
+        transition: all 0.2s ease;
+
+    }
+
+    .save-product-btn:hover {
+
+        color: white;
+
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 11px 28px
+            rgba(40, 116, 240, 0.28);
+
+    }
+
+    /*==========================================
+            RESPONSIVE
+    ==========================================*/
+
+    @media (max-width: 600px) {
+
+        .product-form-page {
+
+            padding: 20px 12px 40px;
+
+        }
+
+        .product-form-card {
+
+            padding: 25px 20px;
+
+            border-radius: 22px;
+
+        }
+
+        .form-row-custom {
+
+            grid-template-columns: 1fr;
+
+            gap: 0;
+
+        }
+
+        .form-header h2 {
+
+            font-size: 20px;
+
+        }
+
+        .form-actions {
+
+            flex-direction: column-reverse;
+
+            align-items: stretch;
+
+        }
+
+        .cancel-btn,
+        .save-product-btn {
+
+            width: 100%;
+
+        }
+
+    }
+
+    </style>
+
+{% endblock %}

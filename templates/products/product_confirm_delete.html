@@ -1,0 +1,557 @@
+{% extends 'products/base.html' %}
+
+{% block title %}
+Delete Product
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/*==========================================
+        DELETE PRODUCT PAGE
+==========================================*/
+
+.delete-page {
+    min-height: calc(100vh - 150px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 45px 20px;
+}
+
+/*==========================================
+        MAIN CARD
+==========================================*/
+
+.delete-card {
+    width: 100%;
+    max-width: 620px;
+
+    padding: 42px;
+
+    border-radius: 30px;
+
+    background: rgba(255, 255, 255, 0.30);
+
+    border: 1px solid rgba(255, 255, 255, 0.65);
+
+    backdrop-filter: blur(28px) saturate(160%);
+    -webkit-backdrop-filter: blur(28px) saturate(160%);
+
+    box-shadow:
+        0 25px 60px rgba(31, 38, 135, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.65);
+
+    text-align: center;
+
+    animation: deleteAppear 0.45s ease;
+}
+
+@keyframes deleteAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+/*==========================================
+        DELETE ICON
+==========================================*/
+
+.delete-icon {
+
+    width: 90px;
+    height: 90px;
+
+    margin: 0 auto 25px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255, 70, 70, 0.12);
+
+    border: 1px solid rgba(255, 70, 70, 0.25);
+
+    box-shadow:
+        0 12px 35px rgba(255, 60, 60, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+    animation: floatingIcon 2.5s ease-in-out infinite;
+}
+
+.delete-icon i {
+
+    font-size: 38px;
+
+    color: #e53935;
+
+}
+
+@keyframes floatingIcon {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+
+}
+
+/*==========================================
+        TITLE
+==========================================*/
+
+.delete-title {
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    color: #202124;
+
+    margin-bottom: 8px;
+
+}
+
+.delete-subtitle {
+
+    font-size: 16px;
+
+    color: #666;
+
+    margin-bottom: 28px;
+
+}
+
+/*==========================================
+        PRODUCT PREVIEW
+==========================================*/
+
+.product-preview {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 20px;
+
+    margin-bottom: 22px;
+
+    text-align: left;
+
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, 0.38);
+
+    border: 1px solid rgba(255, 255, 255, 0.60);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.6),
+        0 8px 25px rgba(31,38,135,0.06);
+
+    transition: 0.25s ease;
+
+}
+
+.product-preview:hover {
+
+    transform: translateY(-2px);
+
+    background: rgba(255, 255, 255, 0.50);
+
+}
+
+/*==========================================
+        PRODUCT ICON
+==========================================*/
+
+.product-icon {
+
+    width: 60px;
+    height: 60px;
+
+    flex-shrink: 0;
+
+    border-radius: 17px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(
+        135deg,
+        #2874f0,
+        #5b9cff
+    );
+
+    color: white;
+
+    box-shadow:
+        0 8px 20px rgba(40, 116, 240, 0.25);
+
+}
+
+.product-icon i {
+
+    font-size: 25px;
+
+}
+
+/*==========================================
+        PRODUCT INFO
+==========================================*/
+
+.product-info {
+
+    min-width: 0;
+
+}
+
+.product-name {
+
+    font-size: 19px;
+
+    font-weight: 750;
+
+    color: #202124;
+
+    margin-bottom: 5px;
+
+    word-break: break-word;
+
+}
+
+.product-category {
+
+    font-size: 14px;
+
+    color: #777;
+
+}
+
+/*==========================================
+        WARNING
+==========================================*/
+
+.delete-warning {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    text-align: left;
+
+    padding: 15px 17px;
+
+    margin-bottom: 28px;
+
+    border-radius: 16px;
+
+    background: rgba(255, 82, 82, 0.08);
+
+    border: 1px solid rgba(255, 82, 82, 0.20);
+
+}
+
+.delete-warning i {
+
+    color: #e53935;
+
+    font-size: 17px;
+
+    margin-top: 2px;
+
+}
+
+.delete-warning p {
+
+    margin: 0;
+
+    color: #666;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+}
+
+.delete-warning strong {
+
+    color: #d32f2f;
+
+}
+
+/*==========================================
+        BUTTONS
+==========================================*/
+
+.delete-actions {
+
+    display: flex;
+
+    gap: 14px;
+
+}
+
+.cancel-delete,
+.confirm-delete {
+
+    flex: 1;
+
+    height: 52px;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition: all 0.25s ease;
+
+}
+
+/* Cancel */
+
+.cancel-delete {
+
+    color: #2874f0;
+
+    background: rgba(255, 255, 255, 0.55);
+
+    border: 1px solid rgba(255, 255, 255, 0.70);
+
+}
+
+.cancel-delete:hover {
+
+    color: #1d5fc4;
+
+    background: rgba(255, 255, 255, 0.80);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(40,116,240,0.12);
+
+}
+
+/* Delete */
+
+.confirm-delete {
+
+    border: none;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff4b4b,
+            #e53935
+        );
+
+    box-shadow:
+        0 8px 22px rgba(229,57,53,0.25);
+
+}
+
+.confirm-delete:hover {
+
+    color: white;
+
+    transform: translateY(-2px);
+
+    background:
+        linear-gradient(
+            135deg,
+            #f44336,
+            #d32f2f
+        );
+
+    box-shadow:
+        0 12px 28px rgba(229,57,53,0.35);
+
+}
+
+.confirm-delete:active,
+.cancel-delete:active {
+
+    transform: scale(0.98);
+
+}
+
+/*==========================================
+        MOBILE
+==========================================*/
+
+@media (max-width: 600px) {
+
+    .delete-page {
+
+        padding: 30px 15px;
+
+    }
+
+    .delete-card {
+
+        padding: 30px 20px;
+
+        border-radius: 24px;
+
+    }
+
+    .delete-title {
+
+        font-size: 26px;
+
+    }
+
+    .delete-actions {
+
+        flex-direction: column-reverse;
+
+    }
+
+}
+
+</style>
+
+<div class="delete-page">
+
+    <div class="delete-card">
+
+        <!-- DELETE ICON -->
+
+        <div class="delete-icon">
+
+            <i class="fa-solid fa-trash-can"></i>
+
+        </div>
+
+        <!-- TITLE -->
+
+        <h1 class="delete-title">
+
+            Delete Product?
+
+        </h1>
+
+        <p class="delete-subtitle">
+
+            Are you sure you want to remove this product?
+
+        </p>
+
+        <!-- PRODUCT -->
+
+        <div class="product-preview">
+
+            <div class="product-icon">
+
+                <i class="fa-solid fa-box-open"></i>
+
+            </div>
+
+            <div class="product-info">
+
+                <div class="product-name">
+
+                    {{ product.product_name }}
+
+                </div>
+
+                <div class="product-category">
+
+                    <i class="fa-solid fa-tag me-1"></i>
+
+                    {{ product.category }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- WARNING -->
+
+        <div class="delete-warning">
+
+            <i class="fa-solid fa-triangle-exclamation"></i>
+
+            <p>
+
+                <strong>This action cannot be undone.</strong>
+
+                This product will be permanently removed from
+                your product management system.
+
+            </p>
+
+        </div>
+
+        <!-- ACTIONS -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="delete-actions">
+
+                <a
+                    href="{% url 'product_list' %}"
+                    class="cancel-delete"
+                >
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    Keep Product
+
+                </a>
+
+                <button
+                    type="submit"
+                    class="confirm-delete"
+                >
+
+                    <i class="fa-solid fa-trash-can"></i>
+
+                    Yes, Delete
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
