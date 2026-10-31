@@ -15,6 +15,7 @@ A Django-based e-commerce application for product browsing and shopping cart man
 <img src="https://img.shields.io/badge/Django-092E20?style=flat-square&logo=django&logoColor=white" alt="Django"/>
 <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white" alt="PostgreSQL"/>
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" alt="HTML5"/>
+<img src="https://img.shields.io/badge/Vercel-FFE500?style=flat-square&logo=vercel&logoColor=172337" alt="Vercel"/>
 
 *✦ Shop smarter · Browse better · Discover more ✦*
 
